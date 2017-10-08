@@ -1,0 +1,14 @@
+{
+    "compilerOptions": {
+
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "target": "ES5",
+        "module": "commonjs",
+        "sourceMap": true,
+        "noEmitOnError": true,
+        "noImplicitAny": true,
+        "experimentalDecorators": true
+    }
+}
