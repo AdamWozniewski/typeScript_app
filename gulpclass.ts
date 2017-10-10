@@ -27,8 +27,27 @@ export class Gulpfile {
             ));
     }
 
+    @Task("copy:client")
+    copyCLient(){
+        return gulp.src(['./client/system.config.js']).pipe(gulp.dest(
+            path.resolve('./dist/server')
+        ))
+    }
+
+    @Task("build:client")
+    buildClient() {
+        var tsProject = ts.createProject(path.resolve('./client/tsconfig.json'));
+        var tsResult = gulp.src(['./client/**/*.ts'])
+            .pipe(sourcemap.init())
+            .pipe(ts(tsProject))
+        return tsResult.js.pipe(sourcemap.write())
+            .pipe(gulp.dest(
+                path.resolve('./dist/client')
+            ));
+    }
+
     @SequenceTask()
     default(){
-        return ['clean', 'build:server'];
+        return ['clean', 'build:server', 'build:client'];
     }
 }

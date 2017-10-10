@@ -10,6 +10,9 @@ var Product = (function () {
     Product.prototype.updateQuantinity = function (newQuantinity) {
         this.quantinity = newQuantinity;
     };
+    Product.prototype.updateName = function (newName) {
+        this.name = newName;
+    };
     Product.prototype.addProducts = function (addedQuantinity) {
         this.quantinity += addedQuantinity;
     };

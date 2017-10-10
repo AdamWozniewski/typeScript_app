@@ -36,4 +36,16 @@ export class Products {
         productQueryString = productQueryString.toLocaleLowerCase();
         return this.listProducts.filter((product: Product) => product.getId() === productId || product.getName().toLocaleLowerCase() === productQueryString).shift();
     }
+
+    public delete(productId: number): boolean {
+        let deleted: boolean = false;
+
+        this.listProducts = this.listProducts.filter((prod: Product) => {
+            deleted = deleted || prod.getId() !== productId;
+            return prod.getId() !== productId;
+        });
+
+        return deleted;
+        // return this.listProducts.filter((product: Product) => product.getId() === productId).shift();
+    }
 }

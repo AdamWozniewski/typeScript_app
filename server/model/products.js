@@ -30,6 +30,15 @@ var Products = (function () {
         productQueryString = productQueryString.toLocaleLowerCase();
         return this.listProducts.filter(function (product) { return product.getId() === productId || product.getName().toLocaleLowerCase() === productQueryString; }).shift();
     };
+    Products.prototype.delete = function (productId) {
+        var deleted = false;
+        this.listProducts = this.listProducts.filter(function (prod) {
+            deleted = deleted || prod.getId() !== productId;
+            return prod.getId() !== productId;
+        });
+        return deleted;
+        // return this.listProducts.filter((product: Product) => product.getId() === productId).shift();
+    };
     return Products;
 }());
 exports.Products = Products;

@@ -3,6 +3,8 @@ import * as bodyParser from 'body-parser';
 import { IndexRoute } from './routes/index';
 import { ProductsRoutes } from './routes/products';
 
+import * as path from 'path';
+
 export class Server {
     private app: express.Express;
 
@@ -15,6 +17,7 @@ export class Server {
         }));
 
         this.setRoutes();
+        this.setStaticRoutes();
     }
 
     private setRoutes() {
@@ -24,6 +27,15 @@ export class Server {
         this.app.use(router);
     }
 
+    private setStaticRoutes() {
+        this.app.use('/node_modules', express.static(
+            path.join(__dirname, '../node_modules')
+        ));
+
+        this.app.use(express.static(
+            path.join(__dirname, '../client')
+        ))
+    }
 
     // Statyczna metoda do uruchonienia aplikacji
     public static bootstrap() : Server {

@@ -13,6 +13,10 @@ export class Product {
         this.quantinity = newQuantinity;
     }
 
+    public updateName(newName: string) {
+        this.name = newName;
+    }
+
     public addProducts(addedQuantinity: number) {
         this.quantinity += addedQuantinity;
     }

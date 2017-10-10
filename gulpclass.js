@@ -27,8 +27,19 @@ var Gulpfile = (function () {
         return tsResult.js.pipe(sourcemap.write())
             .pipe(gulp.dest(path.resolve('./dist/server')));
     };
+    Gulpfile.prototype.copyCLient = function () {
+        return gulp.src(['./client/system.config.js']).pipe(gulp.dest(path.resolve('./dist/server')));
+    };
+    Gulpfile.prototype.buildClient = function () {
+        var tsProject = ts.createProject(path.resolve('./client/tsconfig.json'));
+        var tsResult = gulp.src(['./client/**/*.ts'])
+            .pipe(sourcemap.init())
+            .pipe(ts(tsProject));
+        return tsResult.js.pipe(sourcemap.write())
+            .pipe(gulp.dest(path.resolve('./dist/client')));
+    };
     Gulpfile.prototype.default = function () {
-        return ['clean', 'build:server'];
+        return ['clean', 'build:server', 'build:client'];
     };
     __decorate([
         Decorators_1.Task()
@@ -36,6 +47,12 @@ var Gulpfile = (function () {
     __decorate([
         Decorators_1.Task("build:server")
     ], Gulpfile.prototype, "buildServer", null);
+    __decorate([
+        Decorators_1.Task("copy:client")
+    ], Gulpfile.prototype, "copyCLient", null);
+    __decorate([
+        Decorators_1.Task("build:client")
+    ], Gulpfile.prototype, "buildClient", null);
     __decorate([
         Decorators_1.SequenceTask()
     ], Gulpfile.prototype, "default", null);
