@@ -1,25 +1,22 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+<html>
+  <head>
+    <title>Programowanie w języku TypeScript od podstaw</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles.css">
 
-    <script src="../node_modules/core-js/client/shim.min.js"></script>
-    <script src="../node_modules/zone-js/dist/zone.js"></script>
-    <script src="../node_modules/reflect-metadata/Reflect.js"></script>
-    <script src="../node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/core-js/client/shim.min.js"></script>
+    <script src="node_modules/zone.js/dist/zone.js"></script>
+    <script src="node_modules/reflect-metadata/Reflect.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
 
-    <script src="systemjs.config.js"}></script>
+    <script src="systemjs.config.js"></script>
     <script>
-      System.import('app').catch(function (err) {
-          console.log(err)
-      })
+      System.import('app').catch(function(err){ console.error(err);});
     </script>
-</head>
-<body>
-  <my-app>Ladowanie...</my-app>
-</body>
-</html>
+  </head>
+
+  <body>
+    <my-app>Loading...</my-app>
+  </body>
+<html>

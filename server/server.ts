@@ -22,7 +22,7 @@ export class Server {
 
     private setRoutes() {
         const router: express.Router = express.Router();
-        router.use(IndexRoute.routes('/'));
+        // router.use(IndexRoute.routes('/'));
         router.use(ProductsRoutes.routes('/products'));
         this.app.use(router);
     }

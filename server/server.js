@@ -2,7 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var bodyParser = require("body-parser");
-var index_1 = require("./routes/index");
 var products_1 = require("./routes/products");
 var path = require("path");
 var Server = (function () {
@@ -17,7 +16,7 @@ var Server = (function () {
     }
     Server.prototype.setRoutes = function () {
         var router = express.Router();
-        router.use(index_1.IndexRoute.routes('/'));
+        // router.use(IndexRoute.routes('/'));
         router.use(products_1.ProductsRoutes.routes('/products'));
         this.app.use(router);
     };
