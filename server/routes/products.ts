@@ -8,8 +8,8 @@ export class ProductsRoutes {
     constructor() {
         // this.productList.push(new Product(1, 'ABC', 1));
         this.productList = new Products([
-            new Product(1, 'ABC', 1),
-            new Product(2, 'ABCEFG', 1),
+            new Product(1, 'ABCd', 12),
+            new Product(2, 'ABCEFGh', 12),
         ]);
     }
 
@@ -62,8 +62,8 @@ export class ProductsRoutes {
         let prodId: number = parseInt(req.params.product);
         let product: Product = this.productList.fetch(prodId);
 
-        let productName: string = req.body.product_name; // przekazana wartosc dla PUT
-        let productQuantity: number = parseInt(req.body.product_quantity, 10); // przekazana wartosc dla PUT
+        let productName: string = req.body.name; // przekazana wartosc dla PUT
+        let productQuantity: number = parseInt(req.body.quantinity, 10); // przekazana wartosc dla PUT
 
 
         if(!product) {

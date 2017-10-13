@@ -7,8 +7,8 @@ var ProductsRoutes = (function () {
     function ProductsRoutes() {
         // this.productList.push(new Product(1, 'ABC', 1));
         this.productList = new products_1.Products([
-            new product_1.Product(1, 'ABC', 1),
-            new product_1.Product(2, 'ABCEFG', 1),
+            new product_1.Product(1, 'ABCd', 12),
+            new product_1.Product(2, 'ABCEFGh', 12),
         ]);
     }
     ProductsRoutes.routes = function (nameOfHome) {
@@ -51,8 +51,8 @@ var ProductsRoutes = (function () {
     ProductsRoutes.prototype.update = function (req, res) {
         var prodId = parseInt(req.params.product);
         var product = this.productList.fetch(prodId);
-        var productName = req.body.product_name; // przekazana wartosc dla PUT
-        var productQuantity = parseInt(req.body.product_quantity, 10); // przekazana wartosc dla PUT
+        var productName = req.body.name; // przekazana wartosc dla PUT
+        var productQuantity = parseInt(req.body.quantinity, 10); // przekazana wartosc dla PUT
         if (!product) {
             res.status(404).send("Nie ma takiego produktu");
             return false;

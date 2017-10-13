@@ -6,11 +6,59 @@ import {ProductService} from "./product.service";
     selector: 'my-app',
     template:`<h1>Products</h1>
             <ul class="products">
-                <li *ngFor="let product of products_list">
-                    {{product.name}}
+                <li *ngFor="let product of products_list" (click)="onSelect(product)" [class.selectedsss]="product===selectedProduct">
                     <span class="quantity">{{product.quantinity}}</span>
+                    {{product.name}}
                 </li>
-            </ul>`,
+            </ul>
+            <div *ngIf="selectedProduct">
+                <h2>{{selectedProduct.name}} - {{selectedProduct.quantinity}}</h2>
+
+                <div>
+                    <label>name:</label>
+                    <input [(ngModel)]="selectedProduct.name" placeholder="name">
+
+                    <label>quantity:</label>
+                    <input [(ngModel)]="selectedProduct.quantinity" placeholder="quantity">
+                    <button (click)="save()" >Zapisz</button>
+                </div>
+            </div>
+    `
+            ,
+    styles:[`
+        .selected {
+            background: #CFD8DC !important;
+        }
+        .products {
+            margin: 0 0 2em 0;
+            list-style-type: none;
+            padding: 0;
+            width: 15em;
+        }
+        .products li {
+            cursor: pointer;
+            position: relative;
+            left: 0;
+            background-color:#EEE;
+            margin: .5em;
+            padding: .3em 0;
+            height: 1.6em;
+            border-radius: 4px;
+        }
+        .products li.selected:hover {
+            background-color:#BBD8DC !important;
+            color: #fff;
+        }
+        .products li:hover {
+            color: #607d8b;
+            background-color:#DDD;
+            left: .1em;
+        }
+        .products .quantity {
+            display: inline-block;
+            font-size: small;
+        }
+    `],
     providers: [ProductService]
 })
 
@@ -26,6 +74,15 @@ export class AppComponent implements OnInit{
         this.productService.getProducts().then((response) => {
             return this.products_list = response;
         });
+    }
+
+    onSelect(product: Product): void {
+        console.log(product)
+        this.selectedProduct = product;
+    }
+
+    save(): void {
+        this.productService.update(this.selectedProduct).then(() => this.getProducts())
     }
 
     ngOnInit(): void {
