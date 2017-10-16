@@ -37,7 +37,6 @@ var Products = (function () {
             return prod.getId() !== productId;
         });
         return deleted;
-        // return this.listProducts.filter((product: Product) => product.getId() === productId).shift();
     };
     return Products;
 }());

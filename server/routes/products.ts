@@ -6,7 +6,6 @@ export class ProductsRoutes {
     private productList: Products;
 
     constructor() {
-        // this.productList.push(new Product(1, 'ABC', 1));
         this.productList = new Products([
             new Product(1, 'ABCd', 12),
             new Product(2, 'ABCEFGh', 12),
@@ -27,28 +26,24 @@ export class ProductsRoutes {
         router.put(`${nameOfHome}/update/:product`, productsRoute.update.bind(productsRoute));
         return router; // zwraca nazwę strony w postaci obiektu express.Router()
     }
-    public index(req: Request, res: Response){
-        // res.send("strona produkty")
+    public index(req: Request, res: Response) {
         res.json(this.productList.list());
     }
 
     public create(req: Request, res: Response) {
-        let prodName: string = req.body.product_name;
-        let prodQuantinity: number = parseInt(req.body.product_quantinity) || 0;
+        let productName : string = req.body.name || 'PUSTE';
+        let productQuantity : number = parseInt(req.body.quantinity) || 0;
 
-        if(!prodName) {
-            res.status(500).send("Nie ma takiego produktu");
-            return false;
+        if (!productName) {
+            res.status(500).send('Product name not found');
+            return;
         }
 
-
-        // tu
-        res.json(this.productList.add(prodName, prodQuantinity));
+        res.json(this.productList.add(productName, productQuantity));
     }
 
-
     public delete(req: Request, res: Response) {
-        let prodId: number = parseInt(req.params.product);
+        let prodId: number = parseInt(req.params.id);
         let productWasDeleted: boolean = this.productList.delete(prodId);
         if(!productWasDeleted) {
             res.status(404).send("Nie ma takiego produktu");

@@ -46,6 +46,5 @@ export class Products {
         });
 
         return deleted;
-        // return this.listProducts.filter((product: Product) => product.getId() === productId).shift();
     }
 }

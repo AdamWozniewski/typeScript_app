@@ -9,6 +9,7 @@ import {ProductService} from "./product.service";
                 <li *ngFor="let product of products_list" (click)="onSelect(product)" [class.selectedsss]="product===selectedProduct">
                     <span class="quantity">{{product.quantinity}}</span>
                     {{product.name}}
+                    <button (click)="delete(product); $event.stopPropagation()">usun</button>
                 </li>
             </ul>
             <div *ngIf="selectedProduct">
@@ -22,6 +23,15 @@ import {ProductService} from "./product.service";
                     <input [(ngModel)]="selectedProduct.quantinity" placeholder="quantity">
                     <button (click)="save()" >Zapisz</button>
                 </div>
+            </div>
+            <hr>
+            <div>
+                <label>Nazwa produktu</label>
+                <input #productName/>
+
+                <label>Ilosc</label>
+                <input #productQuantity/>
+                <button (click)="add(productName.value, productQuantity.value)" >Dodaj product</button>
             </div>
     `
             ,
@@ -77,12 +87,37 @@ export class AppComponent implements OnInit{
     }
 
     onSelect(product: Product): void {
-        console.log(product)
         this.selectedProduct = product;
     }
 
     save(): void {
         this.productService.update(this.selectedProduct).then(() => this.getProducts())
+    }
+
+    add(productName: string, productQuantity: string): void {
+        productName = productName.trim();
+        productQuantity = productQuantity.trim();
+
+        if (!productName || !productQuantity) {
+            return;
+        }
+
+        this.productService.create(productName, productQuantity)
+            .then(products => {
+                console.log(products)
+                this.products_list = products;
+                this.selectedProduct = null;
+            });
+    }
+
+    delete(product: Product): void {
+        this.productService.delete(product.id).then(products => {
+            this.products_list = this.products_list.filter((p) => p !== product);
+            console.log(this.products_list)
+            if (this.selectedProduct === products) {
+                this.selectedProduct = null;
+            }
+        })
     }
 
     ngOnInit(): void {

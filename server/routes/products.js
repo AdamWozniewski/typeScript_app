@@ -5,7 +5,6 @@ var product_1 = require("../model/product");
 var products_1 = require("../model/products");
 var ProductsRoutes = (function () {
     function ProductsRoutes() {
-        // this.productList.push(new Product(1, 'ABC', 1));
         this.productList = new products_1.Products([
             new product_1.Product(1, 'ABCd', 12),
             new product_1.Product(2, 'ABCEFGh', 12),
@@ -24,21 +23,19 @@ var ProductsRoutes = (function () {
         return router; // zwraca nazwę strony w postaci obiektu express.Router()
     };
     ProductsRoutes.prototype.index = function (req, res) {
-        // res.send("strona produkty")
         res.json(this.productList.list());
     };
     ProductsRoutes.prototype.create = function (req, res) {
-        var prodName = req.body.product_name;
-        var prodQuantinity = parseInt(req.body.product_quantinity) || 0;
-        if (!prodName) {
-            res.status(500).send("Nie ma takiego produktu");
-            return false;
+        var productName = req.body.name || 'PUSTE';
+        var productQuantity = parseInt(req.body.quantinity) || 0;
+        if (!productName) {
+            res.status(500).send('Product name not found');
+            return;
         }
-        // tu
-        res.json(this.productList.add(prodName, prodQuantinity));
+        res.json(this.productList.add(productName, productQuantity));
     };
     ProductsRoutes.prototype.delete = function (req, res) {
-        var prodId = parseInt(req.params.product);
+        var prodId = parseInt(req.params.id);
         var productWasDeleted = this.productList.delete(prodId);
         if (!productWasDeleted) {
             res.status(404).send("Nie ma takiego produktu");

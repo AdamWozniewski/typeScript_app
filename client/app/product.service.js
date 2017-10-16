@@ -30,9 +30,25 @@ var ProductService = (function () {
     };
     ProductService.prototype.update = function (product) {
         var url = this.productsUrl + "/update/" + product.id;
-        return this.http.post(url, JSON.stringify(product), { headers: { 'Content-Type': 'application/json' } })
+        return this.http.post(url, JSON.stringify(product), { headers: this.header })
             .toPromise()
             .then(function () { return product_1.Product; })
+            .catch(this.handleError);
+    };
+    ProductService.prototype.create = function (productName, productQuantity) {
+        return this.http
+            .post('products/', {
+            name: productName,
+            quantinity: productQuantity
+        }, { headers: this.header })
+            .toPromise()
+            .then(function (result) { return result.json(); })
+            .catch(this.handleError);
+    };
+    ProductService.prototype.delete = function (productId) {
+        return this.http.post(this.productsUrl + "/delete/" + productId, { id: productId }, { headers: this.header })
+            .toPromise()
+            .then(function () { return null; })
             .catch(this.handleError);
     };
     ProductService = __decorate([
